@@ -2,10 +2,10 @@
 # If the user writes "name!" then the computer yells back to the user.
 
 puts "What is your name?"
-name = gets.chomp!
+name = gets.chomp
 
-if name.include?("!")
-  puts "HELLO #{name.chop!.upcase}. WHY ARE WE SCREAMING?"
+if name[-1] == "!"
+  puts "HELLO #{name.chop.upcase}. WHY ARE WE SCREAMING?"
 else
   puts "Hello #{name}."
 end
