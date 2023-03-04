@@ -2,11 +2,15 @@
 
 def palindromic_number?(num)
   str = num.to_s
-  str.chop! if str.end_with?("0")
+  loop do
+    str.chop! if str.end_with?("0")
+    break unless str.end_with?("0")
+  end
   str == str.reverse
 end
 
-p palindromic_number?(34543) == true
-p palindromic_number?(123210) == false
-p palindromic_number?(22) == true
-p palindromic_number?(5) == true
+p palindromic_number?(34543)
+p palindromic_number?(1232100)
+p palindromic_number?(22)
+p palindromic_number?(5)
+
