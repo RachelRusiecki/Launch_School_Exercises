@@ -6,15 +6,15 @@
 NUMBERS = { "0" => 0, "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5, "6" => 6, "7" => 7, "8" => 8, "9" => 9 }
 
 def string_to_integer(str)
-  arr = str.chars.map { |num| NUMBERS[num] }
-  new_arr = []
+  numbers = str.chars.map { |num| DIGITS[num] }
   place_counter = 1
+  arr = []
   loop do
-    new_arr << arr.pop * place_counter
+    arr << numbers.pop * place_counter
     place_counter *= 10
-    break if arr.empty?
+    break if numbers.empty?
   end
-  new_arr.sum
+  arr.sum
 end
 
 p string_to_integer("4321") == 4321

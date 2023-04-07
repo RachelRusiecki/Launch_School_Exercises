@@ -19,27 +19,14 @@ end
 
 # In our solution, we call string[1..-1] twice, and call string_to_integer three times. This is somewhat repetitive. Refactor our solution so it only makes these two calls once each.
 
-def string_to_signed_integer_refactored(str)
-  no_sym = str.delete("-+")
-  answer = string_to_integer(no_sym)
+def string_to_signed_integer(str)
+  answer = string_to_integer(str.delete("-+"))
   str.start_with?("-") ? -answer : answer
 end
 
 p string_to_signed_integer_refactored("4321") == 4321
 p string_to_signed_integer_refactored("-570") == -570
 p string_to_signed_integer_refactored("+100") == 100
-
-# def string_to_signed_integer(str)
-#   if str.start_with?("-")
-#     str.delete!("-")
-#     -string_to_integer(str)
-#   elsif str.start_with?("+")
-#     str.delete!("+")
-#     string_to_integer(str)
-#   else
-#     string_to_integer(str)
-#   end
-# end
 
 # Launch School's solution:
 

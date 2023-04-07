@@ -10,3 +10,4 @@ end
 
 p square(5, 4)
 p square(-8, 2)
+p square(3, -1)

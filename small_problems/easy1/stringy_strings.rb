@@ -19,16 +19,10 @@ puts stringy(7) == "1010101"
 
 def stringy(x, y = 1)
   numbers = []
-  if y == 0
-    x.times do |index|
-    num = index.even? ? 0 : 1
-    numbers << num
-    end
-  else
-    x.times do |index|
+  x.times do |index|
+    index += 1 if y == 0
     num = index.even? ? 1 : 0
     numbers << num
-    end
   end
   numbers.join
 end

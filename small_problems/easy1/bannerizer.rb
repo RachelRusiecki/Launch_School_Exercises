@@ -4,7 +4,7 @@ def print_in_box(str)
   if str.size <= 76
     puts "+-#{'-' * str.size}-+"
     puts "| #{' ' * str.size} |"
-    puts "| #{str[0..75]} |"
+    puts "| #{str} |"
     puts "| #{' ' * str.size} |"
     puts "+-#{'-' * str.size}-+"
   else
@@ -18,13 +18,11 @@ def print_in_box(str)
       idx_end += 76
       break if (str.size - 1) < idx_end
     end
-    idx_end -= 76
-    puts "| #{str[(idx_end + 1)..]}#{' ' * (76 - (str.size % 76))} |"
+    puts "| #{str[(idx_start)..]}#{' ' * (76 - (str.size % 76))} |" if str.size % 76 != 0
     puts "| #{' ' * 76} |"
     puts "+-#{'-' * 76}-+"
   end
 end
 
-print_in_box("To boldly go where no one has gone before. This is a fairly straightforward solution. To boldly go where no one has gone before. This is a fairly straightforward solution. To boldly go where no one has gone before. This is a fairly straightforward solution. To boldly go where no one has gone before. This is a fairly straightforward solution.")
-print_in_box("")
-
+print_in_box("To boldly go where no one has gone before. To boldly go where no one has gone before. To boldly go where no one has gone before. To boldly go where no o")
+print_in_box("abc")
