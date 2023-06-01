@@ -42,7 +42,7 @@ until words.empty?
   p anagrams
 end
 
-# Laaunch School Way:
+# Launch School Way:
 
 result = {}
 
