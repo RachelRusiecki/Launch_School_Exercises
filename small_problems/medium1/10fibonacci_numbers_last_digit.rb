@@ -46,8 +46,7 @@ p fibonacci_last(123456789)
 
 def fast_fibonacci_last(num)
   last_2 = [1, 1]
-  num = num % 60
-  3.upto(num) do
+  3.upto(num % 60) do
     last_2 = [last_2.last, (last_2.first + last_2.last) % 10]
   end
   last_2.last
