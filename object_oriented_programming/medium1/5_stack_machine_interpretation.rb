@@ -12,38 +12,78 @@
 # Your program should produce an error if an unexpected item is present in the string, or if a required stack value is not on the stack when it should be (the stack is empty).
 # In all error cases, no further processing should be performed on the program. You should initialize the register to 0.
 
-class Minilang
-  def initialize(commands)
-    @commands = commands
-    @register = 0
-    @stack = []
-  end
+class MinilangError < StandardError; end
+class BadTokenError < MinilangError; end
+class EmptyStackError < MinilangError; end
 
+class Minilang
+  ACTIONS = %w(PUSH ADD SUB MULT DIV MOD POP PRINT)
+  
+  def initialize(program)
+    @program = program
+  end
+    
   def eval
-    @commands.split.each do |command|
-      case
-      when command =~ /\A[-+]?\d+\z/ then @register = command.to_i
-      when command == 'PUSH' then @stack << @register
-      when command == 'ADD' then @register += @stack.pop
-      when command == 'SUB' then @register -= @stack.pop
-      when command == 'MULT' then @register *= @stack.pop
-      when command == 'DIV' then @register /= @stack.pop
-      when command == 'MOD' then @register %= @stack.pop
-      when command == 'POP' then @register = @stack.pop
-      when command == 'PRINT' then puts @register
-      else
-        puts "Invalid token: #{command}"
-        break
-      end
+    @stack = []
+    @register = 0
+    @program.split.each { |token| eval_token(token) }
+  rescue MinilangError => error
+    puts error.message
+  end
+    
+  private
+  
+  def eval_token(token)
+    if ACTIONS.include?(token)
+      send(token.downcase)
+    elsif token =~ /\A[-+]?\d+\z/
+      @register = token.to_i
+    else
+      raise BadTokenError, "Invalid token: #{token}"
     end
   end
-end
-
-class MyCustomError < StandardError
-  def empty?(arr)
-    arr.empty?
-  rescue
-    puts 'Empty stack!'
+  
+  def push
+    @stack.push(@register)
+  end
+    
+  def pop
+    raise EmptyStackError, 'Empty stack!' if @stack.empty?
+    @register = @stack.pop
+  end
+    
+  def add
+    new_value = @register
+    new_value += pop
+    @register = new_value
+  end
+    
+  def div
+    new_value = @register
+    new_value /= pop
+    @register = new_value
+  end
+    
+  def mod
+    new_value = @register
+    new_value %= pop
+    @register = new_value
+  end
+    
+  def mult
+    new_value = @register
+    new_value *= pop
+    @register = new_value
+  end
+    
+  def sub
+    new_value = @register
+    new_value -= pop
+    @register = new_value
+  end
+    
+  def print
+    puts @register
   end
 end
 
@@ -79,3 +119,23 @@ Minilang.new('-3 PUSH 5 SUB PRINT').eval
 
 Minilang.new('6 PUSH').eval
 # (nothing printed; no PRINT commands)
+
+# You can write minilang programs that take input values by simply interpolating values into the program string with Kernel#format.
+# This process could be simplified by passing some optional parameters to eval, and using those parameters to modify the program string. Try to implement this modification.
+# Also, try writing other minilang programs, such as one that converts fahrenheit to centigrade.
+# Another that converts miles per hour to kilometers per hour (3 mph is approximately equal to 5 kph).
+# Try writing a program that needs two inputs: for example, compute the area of a rectangle.
+
+CENTIGRADE_TO_FAHRENHEIT =
+  '5 PUSH %<degrees_c>d PUSH 9 MULT DIV PUSH 32 ADD PRINT'
+
+minilang = Minilang.new(CENTIGRADE_TO_FAHRENHEIT)
+
+# minilang.eval(degrees_c: 100)
+# # 212
+# minilang.eval(degrees_c: 0)
+# # 32
+# minilang.eval(degrees_c: -40)
+# -40
+
+# Can you find a better solution that doesn't suffer ambiguity?
