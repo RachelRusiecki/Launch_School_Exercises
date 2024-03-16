@@ -3,31 +3,19 @@
 # put to add an object to the buffer, get to remove (and return) the oldest object in the buffer. It should return nil if the buffer is empty.
 # You may assume that none of the values stored in the buffer are nil (however, nil may be used to designate empty spots in the buffer).
 
-require 'pry'
-
 class CircularBuffer
   def initialize(num)
-    @buffer = Array.new(num)
+    @buffer = Array.new
     @size = num
   end
 
   def put(value)
     @buffer << value
-    @buffer.shift
+    @buffer.shift if @buffer.size > @size
   end
 
   def get
-    return_value = nil
-    @buffer.each do |ele|
-      if ele.nil?
-        next
-      else
-        return_value = @buffer.delete(ele)
-        break
-      end
-    end
-    @buffer.unshift(nil) if @buffer.size < @size
-    return_value
+    @buffer.shift
   end
 end
 

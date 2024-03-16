@@ -104,17 +104,13 @@ class PokerHand
 
   def royal_flush?
     return false if hand.min.rank != 10
-    1.upto(4) do |num|
-      return false if hand.sort[0].value + num != hand.sort[num].value
-    end
-    hand.uniq { |card| card.suit }.size == 1
+    return false unless straight?
+    flush?
   end
 
   def straight_flush?
-    1.upto(4) do |num|
-      return false if hand.sort[0].value + num != hand.sort[num].value
-    end
-    hand.uniq { |card| card.suit }.size == 1
+    return false unless straight?
+    flush?
   end
 
   def four_of_a_kind?
@@ -163,7 +159,7 @@ class PokerHand
     end
   end
 end
-
+require 'pry'
 hand = PokerHand.new(Deck.new)
 hand.print
 puts hand.evaluate
