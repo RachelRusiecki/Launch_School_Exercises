@@ -40,8 +40,8 @@ Algorithm:
 =end
 
 class Scrabble
-  POINTS = { %w(a e i o u l n r s t) => 1, %w(d g) => 2, %w(b c m p) => 3,
-             %w(f h v w y) => 4, %w(k) => 5, %w(j x) => 8, %w(q z) => 10 }
+  POINTS = { 'aeioulnrst' => 1, 'dg' => 2, 'bcmp' => 3,
+             'fhvwy' => 4, 'k' => 5, 'jx' => 8, 'qz' => 10 }
 
   def initialize(word)
     @word = word
@@ -49,13 +49,13 @@ class Scrabble
 
   def score
     return 0 if @word.nil?
-    result = []
+    result = 0
     POINTS.each do |letters, point_values|
       @word.downcase.each_char do |char|
-        result << point_values if letters.include?(char)
+        result += point_values if letters.include?(char)
       end
     end
-    result.sum
+    result
   end
 
   def self.score(word)
