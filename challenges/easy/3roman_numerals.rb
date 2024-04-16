@@ -46,20 +46,20 @@ class RomanNumeral
     num = @num
     NUMS.each do |num_key|
       multiplier, num = num.divmod(num_key)
-      numerals << CONVERSION[num_key] * multiplier
+      numerals << (CONVERSION[num_key] * multiplier)
     end
     numerals
   end
 end
 
-  def to_roman
-    numerals = ''
-    num = @num
-    CONVERSION.keys.reverse.each do |num_key|
-      until num / num_key == 0
-        numerals << CONVERSION[num_key]
-        num -= num_key
-      end
-    end
-    numerals
-  end
+# def to_roman
+#   numerals = ''
+#   num = @num
+#   CONVERSION.keys.reverse.each do |num_key|
+#     until num / num_key == 0
+#       numerals << CONVERSION[num_key]
+#       num -= num_key
+#     end
+#   end
+#   numerals
+# end

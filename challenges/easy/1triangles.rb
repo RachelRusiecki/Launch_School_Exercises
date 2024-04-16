@@ -41,13 +41,13 @@ class Triangle
     @side3 = side3
     if [@side1, @side2, @side3].any? { |side| side <= 0 } ||
        [@side1, @side2, @side3].min(2).sum <= [@side1, @side2, @side3].max
-      raise ArgumentError.new
+      raise ArgumentError
     end
   end
 
   def kind
     return 'equilateral' if [@side1, @side2, @side3].uniq.size == 1
     return 'isosceles' if [@side1, @side2, @side3].uniq.size == 2
-    return 'scalene'
+    'scalene'
   end
 end
