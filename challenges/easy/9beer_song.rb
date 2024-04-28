@@ -1,3 +1,4 @@
+# rubocop:disable Layout/LineLength
 =begin
 
 Problem:
@@ -34,6 +35,7 @@ Algorithm:
     - Print each verse using the verse method
 
 =end
+# rubocop:enable Layout/LineLength
 
 class BeerSong
   def self.verse(num)
