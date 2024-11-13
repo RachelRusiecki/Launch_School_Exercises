@@ -10,6 +10,8 @@ function century(year) {
     return `${Math.ceil(year / 100)}nd`;
   } else if (Math.ceil(year / 100) % 10 === 3) {
     return `${Math.ceil(year / 100)}rd`;
+  } else {
+    return `${Math.ceil(year / 100)}th`;
   }
 }
 
@@ -22,3 +24,4 @@ console.log(century(10103));       // "102nd"
 console.log(century(1052));        // "11th"
 console.log(century(1127));        // "12th"
 console.log(century(11201));       // "113th"
+console.log(century(2323));
