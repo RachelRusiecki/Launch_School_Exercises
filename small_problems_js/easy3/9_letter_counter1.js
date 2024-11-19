@@ -5,7 +5,7 @@ function wordSizes(string) {
   let result = {};
   if (string) {
     for (let word of string.split(' ')) {
-      result[word.length] = result[word.length] + 1 || 1;
+      result[word.length] = (result[word.length] + 1 || 1);
     }
   }
 
